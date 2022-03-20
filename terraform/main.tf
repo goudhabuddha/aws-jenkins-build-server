@@ -1,5 +1,6 @@
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
+
 locals {
   account_id  = data.aws_caller_identity.current.account_id
   region      = data.aws_region.current.name
@@ -9,6 +10,20 @@ locals {
     team     = "devops"
     solution = "jenkins"
   }
+}
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.6.0"
+    }
+  }
+}
+
+# Configure the AWS Provider
+provider "aws" {
+  region = local.region
 }
 
 module "myip" {
