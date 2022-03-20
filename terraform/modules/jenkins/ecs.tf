@@ -1,4 +1,4 @@
-// Jenkins Container Infra (Fargate)
+# Jenkins Container Infra (Fargate)
 resource "aws_ecs_cluster" "jenkins_controller" {
   name               = "${var.name_prefix}-main"
   capacity_providers = ["FARGATE"]
@@ -106,7 +106,7 @@ resource "aws_ecs_service" "jenkins_controller" {
   launch_type      = "FARGATE"
   platform_version = "1.4.0"
 
-  // Assuming we cannot have more than one instance at a time. Ever. 
+  # Assuming we cannot have more than one instance at a time. Ever. 
   deployment_maximum_percent         = 100
   deployment_minimum_healthy_percent = 0
 

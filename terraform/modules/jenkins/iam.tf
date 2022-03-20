@@ -146,7 +146,8 @@ data "aws_iam_policy_document" jenkins_controller_task_policy {
     actions = [
       "ecs:ListContainerInstances"
     ]
-    resources = [aws_ecs_cluster.jenkins_controller.arn, aws_ecs_cluster.jenkins_agents.arn]
+    #resources = [aws_ecs_cluster.jenkins_controller.arn, aws_ecs_cluster.jenkins_agents.arn]
+    resources = [aws_ecs_cluster.jenkins_controller.arn]
   }
   statement {
     effect = "Allow"
@@ -156,10 +157,8 @@ data "aws_iam_policy_document" jenkins_controller_task_policy {
     condition {
       test     = "ArnEquals"
       variable = "ecs:cluster"
-      values = [
-          aws_ecs_cluster.jenkins_controller.arn,
-          aws_ecs_cluster.jenkins_agents.arn
-      ]
+      #values = [aws_ecs_cluster.jenkins_controller.arn, aws_ecs_cluster.jenkins_agents.arn]
+      values = [aws_ecs_cluster.jenkins_controller.arn]
     }
     resources = ["arn:aws:ecs:${local.region}:${local.account_id}:task-definition/*"]
   }
@@ -172,10 +171,8 @@ data "aws_iam_policy_document" jenkins_controller_task_policy {
     condition {
       test     = "ArnEquals"
       variable = "ecs:cluster"
-      values = [
-          aws_ecs_cluster.jenkins_controller.arn,
-          aws_ecs_cluster.jenkins_agents.arn
-      ]
+      #values = [aws_ecs_cluster.jenkins_controller.arn, aws_ecs_cluster.jenkins_agents.arn]
+      values = [aws_ecs_cluster.jenkins_controller.arn]
     }
     resources = ["arn:aws:ecs:${local.region}:${local.account_id}:task/*"]
   }
