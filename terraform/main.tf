@@ -23,7 +23,7 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = local.region
+  region = "us-west-2"
 }
 
 module "myip" {
