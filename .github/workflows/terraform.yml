@@ -53,7 +53,7 @@ jobs:
             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*, Jobrun: ${{ github.run_id }}`;
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*, Jobrun: https://github.com/goudhabuddha/aws-jenkins-build-server/actions/runs/${{ github.run_id }}`;
 
             github.issues.createComment({
               issue_number: context.issue.number,
