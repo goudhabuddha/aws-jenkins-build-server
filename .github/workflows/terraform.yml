@@ -10,6 +10,9 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -17,7 +20,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          # terraform_version: 0.13.0:
+          terraform_version: 1.1.7
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Format
@@ -30,12 +33,12 @@ jobs:
       
       - name: Terraform Validate
         id: validate
-        run: terraform validate -no-color
+        run: terraform validate
 
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color
+        run: terraform plan
         continue-on-error: true
 
       - uses: actions/github-script@0.9.0
@@ -50,15 +53,7 @@ jobs:
             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
-            <details><summary>Show Plan</summary>
-
-            \`\`\`\n
-            ${process.env.PLAN}
-            \`\`\`
-
-            </details>
-
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*, Jobrun: https://github.com/goudhabuddha/aws-jenkins-build-server/actions/runs/${{ github.run_id }}`;
 
             github.issues.createComment({
               issue_number: context.issue.number,

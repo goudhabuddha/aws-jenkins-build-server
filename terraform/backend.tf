@@ -2,7 +2,7 @@
 # For more information, see https://www.terraform.io/docs/backends/types/remote.html
 terraform {
   cloud {
-    organization = "example-org-d92a9e"
+    organization = "natebay-aws"
 
     workspaces {
       tags = ["jenkins", "aws", "docker"]
