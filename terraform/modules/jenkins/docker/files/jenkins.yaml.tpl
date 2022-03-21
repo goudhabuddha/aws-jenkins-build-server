@@ -21,30 +21,6 @@ jenkins:
     crumbIssuer: "standard"
     slaveAgentPort: 50000
     clouds:
-        # - ecs:
-        #       allowedOverrides: "inheritFrom,label,memory,cpu,image"
-        #       credentialsId: ""
-        #       cluster: ${ecs_cluster_fargate_spot}
-        #       name: "fargate-cloud-spot"
-        #       regionName: ${cluster_region}
-        #       retentionTimeout: 10
-        #       jenkinsUrl: "http://${jenkins_cloud_map_name}:${jenkins_controller_port}"
-        #       templates:
-        #           - cpu: "512"
-        #             image: "jenkins/inbound-agent"
-        #             label: "build-spot"
-        #             executionRole: ${execution_role_arn}
-        #             launchType: "FARGATE"
-        #             memory: 0
-        #             memoryReservation: 1024
-        #             networkMode: "awsvpc"
-        #             privileged: false
-        #             remoteFSRoot: "/home/jenkins"
-        #             securityGroups: ${agent_security_groups}
-        #             sharedMemorySize: 0
-        #             subnets: ${subnets}
-        #             templateName: "build"
-        #             uniqueRemoteFSRoot: false
         - ecs:
               allowedOverrides: "inheritFrom,label,memory,cpu,image"
               credentialsId: ""
@@ -100,30 +76,3 @@ jobs:
           }
         }
       }
-  # - script: >
-  #     pipelineJob('Simple job non critical task') {
-  #       definition {
-  #         cps {
-  #           script('''
-  #             pipeline {
-  #                 agent {
-  #                     ecs {
-  #                         inheritFrom 'build-spot'
-  #                     }
-  #                 }
-  #                 stages {
-  #                   stage('Test') {
-  #                       steps {
-  #                           script {
-  #                               sh "echo this was executed on a spot instance"
-  #                           }
-  #                           sh 'sleep 120'
-  #                           sh 'echo sleep is done'
-  #                       }
-  #                   }
-  #                 }
-  #             }'''.stripIndent())
-  #             sandbox()
-  #         }
-  #       }
-  #     }
