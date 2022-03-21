@@ -18,12 +18,20 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.6.0"
     }
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 2.16.0"
+    }
   }
 }
 
 # Configure the AWS Provider
 provider "aws" {
   region = "us-west-2"
+}
+
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
 }
 
 module "myip" {
